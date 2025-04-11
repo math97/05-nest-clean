@@ -1,5 +1,6 @@
 
 @baseUrl = http://localhost:3333
+@authToken = {{authenticate.response.body.access_token}}
 
 # @name create_account
 POST {{baseUrl}}/accounts
@@ -21,3 +22,10 @@ Content-Type: application/json
   "email": "matheusal@test.com.br",
   "password": "123456"
 }
+
+###
+
+# @name create_questions
+POST {{baseUrl}}/questions
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMGI3YjRiMC0xMmUxLTRmMzMtYTk2Yy04MmJhY2Q0OWMxOGIiLCJpYXQiOjE3NDQ0MDk3OTZ9.eY_5Lw5qP0H4eTv-lUeQPKAul4gLU7gF0NmlOqXKQZ5ZTOC5vJNKy7-esGKSx9USDIRI5SpLscXmS03KPpcwcgpQQFRE0Pxt5_Ja1hrAnxTnlBEZGUHg52NV7x8mR0hBkamKcoqv-wvopV-lnpRcydmZmkI7eNfGFwRY7jGuvOlTtntCdtx1QpKTSXW4P8xKf3wzdAtcNiABcmizO_0OJ7esc1V8LzpfR7u9dsx17NHAmMszuksY2ADPoyMrdFycIAN2O56ZvWZMS7cuoYoSCqKElz-FQvf1jXapUAfeTwG3BVxyV2wAefPqkgkdmMUiY18r9JPOGa6gP1QQvLfw0Q
