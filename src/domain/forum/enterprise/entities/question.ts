@@ -11,7 +11,7 @@ export interface QuestionProps {
   content: string
   slug: Slug
   authorId: UniqueEntityID
-  bestAnswerId?: UniqueEntityID
+  bestAnswerId?: UniqueEntityID | null
   attachments: QuestionAttachmentList
   createdAt: Date
   updatedAt?: Date | null
@@ -24,6 +24,22 @@ export class Question extends AggregateRoot<QuestionProps> {
 
   get bestAnswerId() {
     return this.props.bestAnswerId
+  }
+
+  set bestAnswerId(bestAnswerId: UniqueEntityID | undefined | null) {
+    if (bestAnswerId === undefined || bestAnswerId === null) {
+      return
+    }
+
+    if (
+      this.props.bestAnswerId === undefined ||
+      this.props.bestAnswerId === null ||
+      !bestAnswerId.equals(this.props.bestAnswerId)
+    ) {
+      this.addDomainEvent(new QuestionBestAnswerChosenEvent(this, bestAnswerId))
+    }
+    this.props.bestAnswerId = bestAnswerId
+    this.touch()
   }
 
   get title() {
@@ -71,21 +87,6 @@ export class Question extends AggregateRoot<QuestionProps> {
 
   set content(content: string) {
     this.props.content = content
-    this.touch()
-  }
-
-  set bestAnswerId(bestAnswerId: UniqueEntityID | undefined) {
-    if (bestAnswerId === undefined) {
-      return
-    }
-
-    if (
-      this.props.bestAnswerId === undefined ||
-      !bestAnswerId.equals(this.props.bestAnswerId)
-    ) {
-      this.addDomainEvent(new QuestionBestAnswerChosenEvent(this, bestAnswerId))
-    }
-    this.props.bestAnswerId = bestAnswerId
     this.touch()
   }
 
