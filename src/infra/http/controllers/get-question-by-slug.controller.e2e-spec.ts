@@ -24,8 +24,8 @@ describe('Get question by slug (E2E)', () => {
       providers: [
         StudentFactory,
         QuestionFactory,
-        attachmentFactory,
-        questionAttachmentFactory,
+        AttachmentFactory,
+        QuestionAttachmentFactory,
       ],
     }).compile()
 
